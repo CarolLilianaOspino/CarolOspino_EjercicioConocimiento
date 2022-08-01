@@ -1,0 +1,39 @@
+-- Create table
+create table TMP_LIBRO_AUTOR
+(
+  cod_libro   VARCHAR2(30) not null,
+  cod_autor   VARCHAR2(30) not null,
+  descripción VARCHAR2(100)
+)
+tablespace DAT_AMERIKA
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table TMP_LIBRO_AUTOR
+  add constraint PK_LIBROAUTOR primary key (COD_LIBRO, COD_AUTOR)
+  using index 
+  tablespace DAT_AMERIKA
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table TMP_LIBRO_AUTOR
+  add constraint FK_LIBROAUTORES_AUTOR foreign key (COD_AUTOR)
+  references TMP_AUTORES (COD_AUTOR);
+alter table TMP_LIBRO_AUTOR
+  add constraint FK_LIBROAUTORES_LIBRO foreign key (COD_LIBRO)
+  references TMP_LIBROS (COD_LIBRO);
